@@ -29,6 +29,7 @@ class _ImplicitAnimationsScreenState extends State<ImplicitAnimationsScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             AnimatedContainer(
+              curve: Curves.elasticOut,
               duration: const Duration(seconds: 2),
               width: size.width * 0.8,
               height: size.width * 0.8,
@@ -36,7 +37,7 @@ class _ImplicitAnimationsScreenState extends State<ImplicitAnimationsScreen> {
               transformAlignment: Alignment.center,
               decoration: BoxDecoration(
                 color: _visible ? Colors.red : Colors.amber,
-                borderRadius: BorderRadius.circular(_visible ? 300 : 0),
+                borderRadius: BorderRadius.circular(_visible ? 100 : 0),
               ),
             ),
             const SizedBox(
