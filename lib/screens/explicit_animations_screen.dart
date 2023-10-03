@@ -12,8 +12,12 @@ class _ExplicitAnimationsScreenState extends State<ExplicitAnimationsScreen>
     with SingleTickerProviderStateMixin {
   late final AnimationController _animationController = AnimationController(
     vsync: this,
-    duration: const Duration(seconds: 10),
+    duration: const Duration(seconds: 2),
   );
+
+  late final Animation<Color?> _color =
+      ColorTween(begin: Colors.amber, end: Colors.red)
+          .animate(_animationController);
 
   void _play() {
     _animationController.forward();
@@ -34,6 +38,7 @@ class _ExplicitAnimationsScreenState extends State<ExplicitAnimationsScreen>
 
   @override
   Widget build(BuildContext context) {
+    print("build");
     return Scaffold(
       appBar: AppBar(
         title: const Text('Explicit Animations'),
@@ -43,15 +48,12 @@ class _ExplicitAnimationsScreenState extends State<ExplicitAnimationsScreen>
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             AnimatedBuilder(
-              animation: _animationController,
+              animation: _color,
               builder: (context, child) {
-                return Opacity(
-                  opacity: _animationController.value,
-                  child: Container(
-                    color: Colors.amber,
-                    width: 400,
-                    height: 400,
-                  ),
+                return Container(
+                  color: _color.value,
+                  width: 400,
+                  height: 400,
                 );
               },
             ),
