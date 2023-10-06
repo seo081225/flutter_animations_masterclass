@@ -13,7 +13,7 @@ class _AppleWatchScreenState extends State<AppleWatchScreen>
     with SingleTickerProviderStateMixin {
   late final AnimationController _animationController = AnimationController(
     vsync: this,
-    duration: const Duration(seconds: 2),
+    duration: const Duration(seconds: 3),
   )..forward();
 
   late final CurvedAnimation _curve = CurvedAnimation(
@@ -21,21 +21,22 @@ class _AppleWatchScreenState extends State<AppleWatchScreen>
     curve: Curves.bounceOut,
   );
 
-  late Animation<double> _progress = Tween(
-    begin: 0.005,
-    end: 1.5,
-  ).animate(_curve);
+  late List<Animation<double>> _progresses = List.generate(
+    3,
+    (index) => Tween(
+      begin: 0.005,
+      end: Random().nextDouble() * 2.0,
+    ).animate(_curve),
+  );
 
   void _animateValues() {
-    final newBegin = _progress.value;
-    final random = Random();
-    final newEnd = random.nextDouble() * 2.0;
-    setState(() {
-      _progress = Tween(
-        begin: newBegin,
-        end: newEnd,
-      ).animate(_curve);
-    });
+    _progresses = List.generate(
+      3,
+      (index) => Tween(
+        begin: _progresses[index].value,
+        end: Random().nextDouble() * 2.0,
+      ).animate(_curve),
+    );
     _animationController.forward(from: 0);
   }
 
@@ -56,11 +57,11 @@ class _AppleWatchScreenState extends State<AppleWatchScreen>
       ),
       body: Center(
         child: AnimatedBuilder(
-          animation: _progress,
+          animation: _animationController,
           builder: (context, child) {
             return CustomPaint(
               painter: AppleWatchPainter(
-                progress: _progress.value,
+                progress: _progresses,
               ),
               size: const Size(400, 400),
             );
@@ -76,7 +77,7 @@ class _AppleWatchScreenState extends State<AppleWatchScreen>
 }
 
 class AppleWatchPainter extends CustomPainter {
-  final double progress;
+  final List<Animation<double>> progress;
 
   AppleWatchPainter({
     required this.progress,
@@ -146,8 +147,8 @@ class AppleWatchPainter extends CustomPainter {
 
     canvas.drawArc(
       redArcRect,
-      startingAngle,
-      progress * pi,
+      -0.5 * pi,
+      progress[0].value * pi,
       false,
       redArcPaint,
     );
@@ -168,7 +169,7 @@ class AppleWatchPainter extends CustomPainter {
     canvas.drawArc(
       greenArcRect,
       startingAngle,
-      progress * pi,
+      progress[1].value * pi,
       false,
       greenArcPaint,
     );
@@ -189,7 +190,7 @@ class AppleWatchPainter extends CustomPainter {
     canvas.drawArc(
       blueArcRect,
       startingAngle,
-      progress * pi,
+      progress[2].value * pi,
       false,
       blueArcPaint,
     );
