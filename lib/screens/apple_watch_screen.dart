@@ -38,6 +38,7 @@ class _AppleWatchScreenState extends State<AppleWatchScreen>
       ).animate(_curve),
     );
     _animationController.forward(from: 0);
+    setState(() {});
   }
 
   @override
@@ -198,6 +199,6 @@ class AppleWatchPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant AppleWatchPainter oldDelegate) {
-    return oldDelegate.progress != progress;
+    return true;
   }
 }
