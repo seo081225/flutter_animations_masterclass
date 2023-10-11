@@ -44,6 +44,7 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
     Navigator.push(
       context,
       PageRouteBuilder(
+        transitionDuration: const Duration(seconds: 1),
         pageBuilder: (context, animation, secondaryAnimation) {
           return FadeTransition(
             opacity: animation,
