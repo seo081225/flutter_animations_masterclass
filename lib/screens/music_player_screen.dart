@@ -35,7 +35,7 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(
-                    "assets/covers/${_currentPage + 1}.jpeg",
+                    "assets/covers/${_currentPage + 1}.jpg",
                   ),
                   fit: BoxFit.cover,
                 ),
@@ -74,7 +74,7 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
                       ],
                       image: DecorationImage(
                         image: AssetImage(
-                          "assets/covers/${index + 1}.jpeg",
+                          "assets/covers/${index + 1}.jpg",
                         ),
                         fit: BoxFit.cover,
                       ),
